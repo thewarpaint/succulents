@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suculentas</title>
+
+    <style>
+      .card,
+      .card__front,
+      .card__back {
+        width: 240px;
+        height: 240px;
+        transition-property: opacity;
+        transition-duration: .33s;
+        transition-timing-function: ease-in-out;
+      }
+
+      .card__front,
+      .card__back {
+        position: absolute;
+      }
+
+      .card:hover .card__back {
+        opacity: 1;
+      }
+
+      .card__front {
+        z-index: 0;
+        background-color: white;
+      }
+
+      .card__back {
+        z-index: 1;
+        opacity: 0;
+        background-size: cover;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <div class="card__front">
+        <p>Aloe espiral</p>
+        <p>Aloe polyphilla</p>
+      </div>
+      <div
+        class="card__back"
+        style="background-image: url('assets/aloe-polyphilla--square--1024.jpg');"
+      ></div>
+    </div>
+  </body>
+</html>
