@@ -9,7 +9,7 @@
       html,
       body {
         margin: 0;
-        font-size: 16px;
+        font-family: serif;
       }
 
       .title {
@@ -67,6 +67,21 @@
 
       .card__scientific-name {
         font-style: italic;
+      }
+
+      .call-to-action {
+        margin: 5vw 0;
+        text-align: center;
+      }
+
+
+      .call-to-action__buy {
+        background: none;
+        border: 1px solid #000000;
+        padding: 2vw 2.5vw;
+        font-size: 5vw;
+        font-family: serif;
+        cursor: pointer;
       }
     </style>
   </head>
@@ -175,6 +190,12 @@
           style="background-image: url('assets/aloe-polyphilla--square--1024.jpg');"
         ></div>
       </div>
+    </div>
+
+    <div class="call-to-action">
+      <button class="call-to-action__buy">
+        Comprar por $99.90
+      </button>
     </div>
   </body>
 </html>
