@@ -12,11 +12,17 @@
         font-size: 16px;
       }
 
+      .card-wrapper {
+        display: flex;
+        flex-flow: row wrap;
+      }
+
       .card,
       .card__front,
       .card__back {
-        width: 240px;
-        height: 240px;
+        /* TODO: Fix to use width: 33.333vw; */
+        width: 32vw;
+        height: 32vw;
         transition-property: opacity;
         transition-duration: .33s;
         transition-timing-function: ease-in-out;
@@ -59,15 +65,39 @@
   </head>
 
   <body>
-    <div class="card">
-      <div class="card__front">
-        <p class="card__text card__common-name">Aloe espiral</p>
-        <p class="card__text card__scientific-name">Aloe polyphilla</p>
+    <div class="card-wrapper">
+      <div class="card">
+        <div class="card__front">
+          <p class="card__text card__common-name">Aloe espiral</p>
+          <p class="card__text card__scientific-name">Aloe polyphilla</p>
+        </div>
+        <div
+          class="card__back"
+          style="background-image: url('assets/aloe-polyphilla--square--1024.jpg');"
+        ></div>
       </div>
-      <div
-        class="card__back"
-        style="background-image: url('assets/aloe-polyphilla--square--1024.jpg');"
-      ></div>
+
+      <div class="card">
+        <div class="card__front">
+          <p class="card__text card__common-name">Aloe espiral</p>
+          <p class="card__text card__scientific-name">Aloe polyphilla</p>
+        </div>
+        <div
+          class="card__back"
+          style="background-image: url('assets/aloe-polyphilla--square--1024.jpg');"
+        ></div>
+      </div>
+
+      <div class="card">
+        <div class="card__front">
+          <p class="card__text card__common-name">Aloe espiral</p>
+          <p class="card__text card__scientific-name">Aloe polyphilla</p>
+        </div>
+        <div
+          class="card__back"
+          style="background-image: url('assets/aloe-polyphilla--square--1024.jpg');"
+        ></div>
+      </div>
     </div>
   </body>
 </html>
