@@ -53,6 +53,21 @@ def create_payment_intent():
       'error': e.user_message
     })
 
+# TODO: Find a better resource path that doesn't have an action
+@app.route('/v1/payment-intent/<payment_intent_id>/confirm', methods=['POST'])
+def confirm_payment_intent(payment_intent_id):
+  # TODO: Validate payment_intent_id
+  try:
+    # Confirm the PaymentIntent to finalize payment after handling a required action
+    # on the client.
+    intent = stripe.PaymentIntent.confirm(payment_intent_id)
+
+    return generate_response(intent)
+  except stripe.error.CardError as e:
+    return jsonify({
+      'error': e.user_message
+    })
+
 def generate_response(intent):
   status = intent['status']
 
