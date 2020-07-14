@@ -23,3 +23,58 @@ def get_configuration():
   return jsonify({
     'publishableKey': os.getenv('STRIPE_PUBLISHABLE_KEY')
   })
+
+@app.route('/v1/payment-intent', methods=['POST'])
+def create_payment_intent():
+  order_amount = 1234
+  order_currency = 'mxn'
+
+  # TODO: Validate data.paymentMethodId
+  # data = request.get_json()
+
+  try:
+    # Create new PaymentIntent with a PaymentMethod id from the client
+    intent = stripe.PaymentIntent.create(
+      amount=order_amount,
+      currency=order_currency,
+      # TODO: Enable paymentMethodId when integrating with the UI
+      # payment_method=data['paymentMethodId'],
+      payment_method_types=['card'],
+      confirmation_method='manual',
+      confirm=True,
+      # If a mobile client passes `useStripeSdk`, set `use_stripe_sdk=true`
+      # to take advantage of new authentication features in mobile SDKs.
+      use_stripe_sdk=True if 'useStripeSdk' in data and data['useStripeSdk'] else None,
+    )
+
+    return generate_response(intent)
+  except stripe.error.CardError as e:
+    return jsonify({
+      'error': e.user_message
+    })
+
+def generate_response(intent):
+  status = intent['status']
+
+  if status == 'requires_action' or status == 'requires_source_action':
+    # Card requires authentication
+    return jsonify({
+      'requiresAction': True,
+      'paymentIntentId': intent['id'],
+      'clientSecret': intent['client_secret']
+    })
+
+  if status == 'requires_payment_method' or status == 'requires_source':
+    # Card was not properly authenticated, suggest a new payment method
+    return jsonify({
+      'error': 'Your card was denied, please provide a new payment method'
+    })
+
+  if status == 'succeeded':
+    # Payment is complete, authentication not required
+    # To cancel the payment you will need to issue a Refund (https://stripe.com/docs/api/refunds)
+    print('Payment received!')
+
+    return jsonify({
+      'clientSecret': intent['client_secret']
+    })
